@@ -130,7 +130,7 @@ public class Calculator {
         }
 
         if (stack.size() != VALID_STACK_SIZE) {
-            throw new IllegalArgumentException("Invalid RPN expression");
+            throw new NumberFormatException("Invalid RPN expression");
         }
         return stack.pop();
     }

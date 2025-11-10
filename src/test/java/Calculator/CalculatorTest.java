@@ -31,7 +31,7 @@ class CalculatorTest {
     @DisplayName("Multiplication and division precedence")
     void testPrecedence() {
         double res =  Calculator.evaluate("8 / 4 / 2");
-        assertEquals(2.0, res, 0.001, "Expected: 2.0, got: " + res);
+        assertEquals(1.0, res, 0.001, "Expected: 1.0, got: " + res);
     }
 
     @Test
@@ -45,7 +45,7 @@ class CalculatorTest {
     @DisplayName("Complex expression")
     void testComplex() {
         double res = Calculator.evaluate("3 + 5 * (2 + 4) - 2");
-        assertEquals(28.0, res, 0.001, "Expected: 28.0, got: " + res);
+        assertEquals(31.0, res, 0.001, "Expected: 31.0, got: " + res);
     }
 
     @Test

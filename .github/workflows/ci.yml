@@ -26,13 +26,4 @@ jobs:
 
       - name: Run PMD and Tests
         run: ./gradlew check
-
-      - name: Upload PMD report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pmd-report
-          path: build/reports/PMD/
-          retention-days: 7
-          pattern: main.*
-          merge-multiple: true
+        

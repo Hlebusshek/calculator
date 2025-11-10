@@ -4,37 +4,48 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 
-public class CalculatorTest {
+class CalculatorTest {
 
     @Test
     @DisplayName("Simple addition")
     void testAddition() {
-        assertEquals(5.0, Calculator.evaluate("2 + 3"), 0.001);
+        double res = Calculator.evaluate("2 + 3");
+        assertEquals(5.0, res, 0.001, "Expected: 5.0, got: " + res);
     }
 
     @Test
     @DisplayName("Subtraction and parentheses")
     void testSubtractionWithParentheses() {
-        assertEquals(1.0, Calculator.evaluate("(5 - 3) + (1 - 2)"), 0.001);
+        double res = Calculator.evaluate("(5 - 3) + (1 - 2)");
+        assertEquals(1.0, res, 0.001, "Expected: 1.0, got: " + res);
+    }
+
+    @Test
+    @DisplayName("Multiplication and division precedence")
+    void testMultiplicationPrecedence() {
+        double res = Calculator.evaluate("2 + 3 * 4");
+        assertEquals(14.0, res, 0.001, "Expected: 14.0, got: " + res);
     }
 
     @Test
     @DisplayName("Multiplication and division precedence")
     void testPrecedence() {
-        assertEquals(14.0, Calculator.evaluate("2 + 3 * 4"), 0.001);
-        assertEquals(2.0, Calculator.evaluate("8 / 4 / 2"), 0.001);
+        double res =  Calculator.evaluate("8 / 4 / 2");
+        assertEquals(2.0, res, 0.001, "Expected: 2.0, got: " + res);
     }
 
     @Test
     @DisplayName("Exponentiation (right-associative)")
     void testExponentiation() {
-        assertEquals(512.0, Calculator.evaluate("2 ^ 3 ^ 2"), 0.001);
+        double res = Calculator.evaluate("2 ^ 3 ^ 2");
+        assertEquals(512.0, res, 0.001, "Expected: 512.0, got: " + res);
     }
 
     @Test
     @DisplayName("Complex expression")
     void testComplex() {
-        assertEquals(28.0, Calculator.evaluate("3 + 5 * (2 + 4) - 2"), 0.001);
+        double res = Calculator.evaluate("3 + 5 * (2 + 4) - 2");
+        assertEquals(28.0, res, 0.001, "Expected: 28.0, got: " + res);
     }
 
     @Test

@@ -24,15 +24,15 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Run Checkstyle and Tests
+      - name: Run PMD and Tests
         run: ./gradlew check
 
-      - name: Upload Checkstyle report
+      - name: Upload PMD report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: checkstyle-report
-          path: build/reports/checkstyle/
+          name: pmd-report
+          path: build/reports/PMD/
           retention-days: 7
-          pattern: checkstyle-report-*
+          pattern: main.*
           merge-multiple: true

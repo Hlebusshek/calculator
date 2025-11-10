@@ -1,6 +1,6 @@
 plugins {
     java
-    checkstyle
+    pmd
 }
 
 group = "com.example"
@@ -26,14 +26,9 @@ tasks.test {
         events("passed", "skipped", "failed")
     }
 }
-
-checkstyle {
-    toolVersion = "10.12.3"
-    config = resources.text.fromArchiveEntry(
-        dependencies.create("com.puppycrawl.tools:checkstyle:10.12.3"),
-        "google_checks.xml"
-    )
-    isIgnoreFailures = false
-    maxErrors = 0
-    maxWarnings = 0
+pmd {
+    isConsoleOutput = true
+    toolVersion = "7.16.0"
+    rulesMinimumPriority = 5
+    ruleSetFiles = files("config/pmd/pmd.xml")
 }

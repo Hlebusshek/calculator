@@ -28,7 +28,7 @@ public class CalculatorTest {
     @Test
     @DisplayName("Exponentiation (right-associative)")
     void testExponentiation() {
-        assertEquals(512.0, Calculator.evaluate("2 ^ 3 ^ 2"), 0.001); // 2^(3^2) = 512
+        assertEquals(512.0, Calculator.evaluate("2 ^ 3 ^ 2"), 0.001);
     }
 
     @Test

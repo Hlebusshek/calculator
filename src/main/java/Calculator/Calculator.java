@@ -3,6 +3,8 @@ package Calculator;
 import java.util.*;
 
 public class Calculator {
+    private static final int MAX_STACK_SIZE = 2;
+    private static final int VALID_STACK_SIZE = 1;
     private static final Map<String, Integer> PRECEDENCE = new HashMap<>();
     private static final Set<String> OPERATORS = new HashSet<>();
 
@@ -56,22 +58,22 @@ public class Calculator {
         for (String token : tokens) {
             if (isNumber(token)) {
                 output.addLast(token);
-            } else if (token.equals("(")) {
+            } else if ("(".equals(token)) {
                 operators.push(token);
-            } else if (token.equals(")")) {
-                while (!operators.isEmpty() && !operators.peek().equals("(")) {
+            } else if (")".equals(token)) {
+                while (!operators.isEmpty() && !"(".equals(operators.peek())) {
                     output.addLast(operators.pop());
                 }
                 if (operators.isEmpty()) {
                     throw new IllegalArgumentException("Mismatched parentheses");
                 }
-                operators.pop(); // remove "("
+                operators.pop();
             } else if (OPERATORS.contains(token)) {
                 while (!operators.isEmpty()
-                        && !operators.peek().equals("(")
+                        && !"(".equals(operators.peek())
                         && (PRECEDENCE.get(operators.peek()) > PRECEDENCE.get(token)
                         || (PRECEDENCE.get(operators.peek()).equals(PRECEDENCE.get(token))
-                        && !token.equals("^")))) {
+                        && !"^".equals(token)))) {
                     output.addLast(operators.pop());
                 }
                 operators.push(token);
@@ -82,7 +84,7 @@ public class Calculator {
 
         while (!operators.isEmpty()) {
             String op = operators.pop();
-            if (op.equals("(") || op.equals(")")) {
+            if ("(".equals(op) || ")".equals(op)) {
                 throw new IllegalArgumentException("Mismatched parentheses");
             }
             output.addLast(op);
@@ -107,7 +109,7 @@ public class Calculator {
             if (isNumber(token)) {
                 stack.push(Double.valueOf(token));
             } else {
-                if (stack.size() < 2) {
+                if (stack.size() < MAX_STACK_SIZE) {
                     throw new IllegalArgumentException("Invalid RPN expression");
                 }
                 double b = stack.pop();
@@ -127,7 +129,7 @@ public class Calculator {
             }
         }
 
-        if (stack.size() != 1) {
+        if (stack.size() != VALID_STACK_SIZE) {
             throw new IllegalArgumentException("Invalid RPN expression");
         }
         return stack.pop();

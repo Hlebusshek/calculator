@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 
+import java.util.List;
+
 class CalculatorTest {
 
     @Test
@@ -58,6 +60,46 @@ class CalculatorTest {
     @DisplayName("Mismatched parentheses")
     void testMismatchedParentheses() {
         assertThrows(IllegalArgumentException.class, () -> Calculator.evaluate("2 + (3"));
+    }
+
+    @Test
+    @DisplayName("RPN: simple addition")
+    void testRpnAddition() {
+        List<String> rpn = Calculator.toReversePolishNotation("2 + 3");
+        List<String> expected = List.of("2", "3", "+");
+        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+    }
+
+    @Test
+    @DisplayName("RPN: multiplication before addition")
+    void testRpnPrecedence() {
+        List<String> rpn = Calculator.toReversePolishNotation("2 + 3 * 4");
+        List<String> expected = List.of("2", "3", "4", "*", "+");
+        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+    }
+
+    @Test
+    @DisplayName("RPN: parentheses change order")
+    void testRpnParentheses() {
+        List<String> rpn = Calculator.toReversePolishNotation("(2 + 3) * 4");
+        List<String> expected = List.of("2", "3", "+", "4", "*");
+        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+    }
+
+    @Test
+    @DisplayName("RPN: right-associative exponentiation")
+    void testRpnExponentiation() {
+        List<String> rpn = Calculator.toReversePolishNotation("2 ^ 3 ^ 2");
+        List<String> expected = List.of("2", "3", "2", "^", "^");
+        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+    }
+
+    @Test
+    @DisplayName("RPN: complex expression")
+    void testRpnComplex() {
+        List<String> rpn = Calculator.toReversePolishNotation("3 + 5 * (2 + 4) - 2");
+        List<String> expected = List.of("3", "5", "2", "4", "+", "*", "+", "2", "-");
+        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
     }
 
     @Test

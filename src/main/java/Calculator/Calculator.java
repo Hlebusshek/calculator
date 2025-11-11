@@ -134,4 +134,9 @@ public class Calculator {
         }
         return stack.pop();
     }
+
+    public static List<String> toReversePolishNotation(String expression) {
+        List<String> tokens = tokenize(expression);
+        return toRpn(tokens);
+    }
 }

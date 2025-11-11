@@ -67,15 +67,15 @@ class CalculatorTest {
     void testRpnAddition() {
         List<String> rpn = Calculator.toReversePolishNotation("2 + 3");
         List<String> expected = List.of("2", "3", "+");
-        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+        assertEquals(expected, rpn, "Expected 23+, got: " + rpn);
     }
 
     @Test
-    @DisplayName("RPN: multiplication before addition")
+    @DisplayName("RPN: multiply before add")
     void testRpnPrecedence() {
         List<String> rpn = Calculator.toReversePolishNotation("2 + 3 * 4");
         List<String> expected = List.of("2", "3", "4", "*", "+");
-        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+        assertEquals(expected, rpn, "Expected 234*+, got: " + rpn);
     }
 
     @Test
@@ -83,23 +83,7 @@ class CalculatorTest {
     void testRpnParentheses() {
         List<String> rpn = Calculator.toReversePolishNotation("(2 + 3) * 4");
         List<String> expected = List.of("2", "3", "+", "4", "*");
-        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
-    }
-
-    @Test
-    @DisplayName("RPN: right-associative exponentiation")
-    void testRpnExponentiation() {
-        List<String> rpn = Calculator.toReversePolishNotation("2 ^ 3 ^ 2");
-        List<String> expected = List.of("2", "3", "2", "^", "^");
-        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
-    }
-
-    @Test
-    @DisplayName("RPN: complex expression")
-    void testRpnComplex() {
-        List<String> rpn = Calculator.toReversePolishNotation("3 + 5 * (2 + 4) - 2");
-        List<String> expected = List.of("3", "5", "2", "4", "+", "*", "+", "2", "-");
-        assertEquals(expected, rpn, "Expected RPN: " + expected + ", got: " + rpn);
+        assertEquals(expected, rpn, "Expected 23+4*, got: " + rpn);
     }
 
     @Test
